@@ -4,8 +4,12 @@
  */
 package com.banking.system.banking_mangement_system;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -14,12 +18,17 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author raben
  */
 public class Authentication extends javax.swing.JFrame {
-
+Connection conn;
+ResultSet rs;
+PreparedStatement pst;
     /**
      * Creates new form authentication
      */
     public Authentication() {
+        super("Login");
         initComponents();
+         Connection conn=JavaConnect.ConnectDb();
+
     }
 
     /**
@@ -152,7 +161,25 @@ public class Authentication extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+      String sql ="select * from Account where Acc=? and Pin=?";
+      try{
+          pst=conn.prepareStatement(sql);
+          pst.setString(1, jTextField1.getText());
+           pst.setString(2, jTextField2.getText());
+           rs=pst.executeQuery();
+           if(rs.next()){
+               setVisible(false);
+               Loading ob = new Loading();
+               ob.setVisible(true);
+               rs.close();
+               pst.close();
+           }
+          
+      }
+      catch(Exception e){
+          JOptionPane.showMessageDialog(null, e);
+          
+      }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

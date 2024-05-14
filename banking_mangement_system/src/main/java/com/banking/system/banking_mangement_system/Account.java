@@ -4,17 +4,26 @@
  */
 package com.banking.system.banking_mangement_system;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 /**
  *
  * @author raben
  */
 public class Account extends javax.swing.JFrame {
-
+Connection conn;
+ResultSet rs;
+PreparedStatement pst;
     /**
      * Creates new form Account
      */
     public Account() {
+        super("Create Account");
         initComponents();
+        Connection conn=JavaConnect.ConnectDb();
+
     }
 
     /**

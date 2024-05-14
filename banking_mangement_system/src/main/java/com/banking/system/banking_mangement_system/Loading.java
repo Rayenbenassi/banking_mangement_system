@@ -4,6 +4,8 @@
  */
 package com.banking.system.banking_mangement_system;
 
+import java.sql.Connection;
+
 /**
  *
  * @author raben
@@ -14,7 +16,10 @@ public class Loading extends javax.swing.JFrame {
      * Creates new form Loading
      */
     public Loading() {
+        super("Loading");
         initComponents();
+        Connection conn=JavaConnect.ConnectDb();
+
     }
 
     /**
